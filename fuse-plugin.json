@@ -2,9 +2,9 @@
   "name": "fuse-opencode-plugin",
   "version": "1.0.0",
   "description": "FUSE - Spec-Driven AI Orchestration for OpenCode",
-  "author": "pixelsmon",
+  "author": "BandiAkarsh",
   "license": "MIT",
-  "repository": "https://github.com/pixelsmon/fuse-opencode-plugin",
+  "repository": "https://github.com/BandiAkarsh/fuse-opencode-plugin",
   
   "plugin": {
     "main": "./plugin/fuse.js",

@@ -47,17 +47,17 @@ FUSE = Fast + SPEC
 ## Quick Install (One Command)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh | bash
 ```
 
 ### Or with options:
 
 ```bash
 # Install with fuse plugin
-curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main/install.sh | bash -s fuse
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh | bash -s fuse
 
 # Check what would be installed first
-curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main/install.sh -o install.sh
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh -o install.sh
 bash install.sh --dry-run
 ```
 
@@ -108,11 +108,11 @@ which opencode || echo "OpenCode not found"
 mkdir -p ~/.config/opencode/plugin
 
 # Step 3: Download plugin
-curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main/dist/index.js \
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/dist/index.js \
   -o ~/.config/opencode/plugin/fuse.js
 
 # Step 4: Download plugin manifest
-curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main/fuse-plugin.json \
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/fuse-plugin.json \
   -o ~/.config/opencode/plugin/fuse-plugin.json
 
 # Step 5: Update opencode.json

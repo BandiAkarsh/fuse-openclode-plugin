@@ -19,9 +19,9 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # Config
-REPO_URL="https://github.com/pixelsmon/fuse-opencode-plugin"
+REPO_URL="https://github.com/BandiAkarsh/fuse-opencode-plugin"
 BRANCH="main"
-RAW_URL="${RAW_URL:-https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/${BRANCH}}"
+RAW_URL="${RAW_URL:-https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/${BRANCH}}"
 INSTALL_DIR="${OPENCODE_INSTALL_DIR:-$HOME/.config/opencode}"
 PLUGIN_DIR="${INSTALL_DIR}/plugin"
 FUSE_DIR="${INSTALL_DIR}/fuse-memory"
@@ -262,7 +262,7 @@ print_next_steps() {
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    print_info "Documentation: https://github.com/pixelsmon/fuse-opencode-plugin"
+    print_info "Documentation: https://github.com/BandiAkarsh/fuse-opencode-plugin"
     print_info "Inspired by: https://github.com/darrenhinde/OpenAgentsControl"
 }
 
