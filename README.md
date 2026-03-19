@@ -2,6 +2,26 @@
 
 **FUSE** (Fully Unified Software Engine) - Self-improving workflow orchestration that learns from mistakes.
 
+> **Inspiration**: FUSE takes inspiration from [OpenAgentsControl by Darren Hide](https://github.com/darrenhinde/OpenAgentsControl), an excellent project that provides structured workflows for OpenCode. FUSE extends this with spec-driven development principles, dynamic questioning, and self-improvement capabilities.
+
+## Why FUSE Isn't Visible Right Now
+
+⚠️ **FUSE only works inside OpenCode TUI!** 
+
+This conversation is NOT in OpenCode - it's a regular chat interface. FUSE is a plugin that:
+
+1. **Installs into OpenCode** → `/home/akarsh/.config/opencode/plugin/`
+2. **Works inside OpenCode TUI** → `opencode` command
+3. **Provides tools** → `fuse_analyze`, `fuse_create_spec`, etc.
+
+To use FUSE:
+```bash
+# Install OpenCode first
+opencode
+
+# Then FUSE works automatically!
+```
+
 ## The Problem
 
 AI coding tools generate code fast, but:

@@ -3,6 +3,8 @@
 #############################################################################
 # FUSE Plugin Installer for OpenCode
 # One-command installation of spec-driven workflow orchestration
+#
+# Inspired by OpenAgentsControl (darrenhinde/OpenAgentsControl)
 #############################################################################
 
 set -e
@@ -23,6 +25,8 @@ RAW_URL="${RAW_URL:-https://raw.githubusercontent.com/pixelsmon/fuse-opencode-pl
 INSTALL_DIR="${OPENCODE_INSTALL_DIR:-$HOME/.config/opencode}"
 PLUGIN_DIR="${INSTALL_DIR}/plugin"
 FUSE_DIR="${INSTALL_DIR}/fuse-memory"
+AGENT_DIR="${INSTALL_DIR}/agent"
+CONTEXT_DIR="${INSTALL_DIR}/context"
 
 #############################################################################
 # Functions
@@ -37,6 +41,8 @@ print_header() {
     echo "║                                                                ║"
     echo "╚════════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
+    echo -e "${CYAN}Inspired by OpenAgentsControl (darrenhinde/OpenAgentsControl)${NC}"
+    echo ""
 }
 
 print_success() { echo -e "${GREEN}✓${NC} $1"; }
@@ -74,6 +80,10 @@ create_directories() {
     mkdir -p "$FUSE_DIR/memory/corrections"
     mkdir -p "$FUSE_DIR/memory/patterns"
     mkdir -p "$FUSE_DIR/memory/self_improvement"
+    mkdir -p "$AGENT_DIR/core"
+    mkdir -p "$AGENT_DIR/subagents/core"
+    mkdir -p "$CONTEXT_DIR/core"
+    mkdir -p "$CONTEXT_DIR/project"
     
     print_success "Directories created"
 }
@@ -95,6 +105,68 @@ download_plugin() {
     else
         print_warning "Manifest download failed (optional)"
     fi
+}
+
+download_agents() {
+    print_info "Downloading FUSE agents..."
+    
+    # Download main agents
+    if curl -fsSL "${RAW_URL}/.opencode/agent/core/openagent.md" -o "${AGENT_DIR}/core/openagent.md"; then
+        print_success "openagent.md installed"
+    else
+        print_warning "Failed to download openagent.md"
+    fi
+    
+    if curl -fsSL "${RAW_URL}/.opencode/agent/core/opencoder.md" -o "${AGENT_DIR}/core/opencoder.md"; then
+        print_success "opencoder.md installed"
+    else
+        print_warning "Failed to download opencoder.md"
+    fi
+    
+    # Download subagents
+    local subagents=(
+        "contextscout.md"
+        "externalscout.md"
+        "task-manager.md"
+        "memory-agent.md"
+        "documentation.md"
+        "context-retriever.md"
+    )
+    
+    for sa in "${subagents[@]}"; do
+        if curl -fsSL "${RAW_URL}/.opencode/agent/subagents/core/${sa}" -o "${AGENT_DIR}/subagents/core/${sa}"; then
+            print_success "${sa} installed"
+        else
+            print_warning "Failed to download ${sa}"
+        fi
+    done
+}
+
+download_context() {
+    print_info "Downloading FUSE context files..."
+    
+    # Download navigation
+    if curl -fsSL "${RAW_URL}/.opencode/context/navigation.md" -o "${CONTEXT_DIR}/navigation.md"; then
+        print_success "navigation.md installed"
+    fi
+    
+    # Download core context directories
+    local contexts=(
+        "core/standards/code-quality.md"
+        "core/workflows/session-management.md"
+        "core/workflows/task-delegation-basics.md"
+        "core/workflows/code-review.md"
+        "core/standards/documentation.md"
+        "core/standards/test-coverage.md"
+    )
+    
+    for ctx in "${contexts[@]}"; do
+        local dest="${CONTEXT_DIR}/${ctx}"
+        mkdir -p "$(dirname "$dest")"
+        if curl -fsSL "${RAW_URL}/.opencode/context/${ctx}" -o "$dest"; then
+            print_success "${ctx} installed"
+        fi
+    done
 }
 
 install_memory() {
@@ -152,7 +224,6 @@ EOF
         else
             # Simple backup and append
             cp "$opencode_json" "${opencode_json}.bak"
-            # This is a naive approach - works for simple cases
             sed -i 's/"plugins": \[/"plugins": ["~\/.config\/opencode\/plugin\/fuse.js",/g' "$opencode_json" 2>/dev/null || \
             sed -i 's/"plugins": \[/"plugins": ['"'"'~/.config/opencode/plugin/fuse.js'"'"',/g' "$opencode_json"
             print_success "Added FUSE to plugins"
@@ -168,25 +239,31 @@ print_next_steps() {
     echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
     echo -e "${GREEN}FUSE Plugin:${NC} ${PLUGIN_DIR}/fuse.js"
-    echo -e "${GREEN}Memory:${NC} ${FUSE_DIR}/memory/"
+    echo -e "${GREEN}FUSE Memory:${NC} ${FUSE_DIR}/memory/"
+    echo -e "${GREEN}Agents:${NC} ${AGENT_DIR}/"
+    echo -e "${GREEN}Context:${NC} ${CONTEXT_DIR}/"
     echo ""
     echo -e "${BOLD}Next Steps:${NC}"
     echo ""
-    echo "1. Restart OpenCode (or start a new session)"
+    echo "1. Restart OpenCode (or start a new session):"
+    echo -e "   ${CYAN}opencode${NC}"
     echo ""
     echo "2. Test FUSE is loaded:"
-    echo -e "   ${CYAN}opencode${NC}"
-    echo -e "   Then type: ${CYAN}fuse_status${NC}"
+    echo -e "   ${CYAN}fuse_status${NC}"
     echo ""
     echo "3. Analyze a task:"
     echo -e "   ${CYAN}fuse_analyze create a full-stack todo app${NC}"
     echo ""
-    echo "4. Create a SPEC for a new project:"
-    echo -e "   ${CYAN}fuse_create_spec build an ecommerce platform${NC}"
+    echo "4. Start a dynamic SPEC conversation:"
+    echo -e "   ${CYAN}fuse_create_spec${NC}"
+    echo ""
+    echo "5. For updates/modifications:"
+    echo -e "   ${CYAN}fuse_update${NC}"
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     print_info "Documentation: https://github.com/pixelsmon/fuse-opencode-plugin"
+    print_info "Inspired by: https://github.com/darrenhinde/OpenAgentsControl"
 }
 
 #############################################################################
@@ -196,7 +273,6 @@ print_next_steps() {
 main() {
     print_header
     
-    echo ""
     echo -e "${CYAN}Installing FUSE Plugin...${NC}"
     echo ""
     
@@ -204,6 +280,8 @@ main() {
     check_opencode
     create_directories
     download_plugin
+    download_agents
+    download_context
     install_memory
     configure_opencode
     
@@ -219,6 +297,8 @@ case "${1:-}" in
     --dry-run|-n)
         echo "Dry run - would install:"
         echo "  Plugin: ${PLUGIN_DIR}/fuse.js"
+        echo "  Agents: ${AGENT_DIR}/"
+        echo "  Context: ${CONTEXT_DIR}/"
         echo "  Memory: ${FUSE_DIR}/memory/"
         echo "  Config: ${INSTALL_DIR}/opencode.json"
         exit 0
@@ -232,6 +312,17 @@ case "${1:-}" in
         echo ""
         echo "Environment:"
         echo "  OPENCODE_INSTALL_DIR    Installation directory (default: ~/.config/opencode)"
+        exit 0
+        ;;
+    --agents-only)
+        # Just install agents
+        check_dependencies
+        mkdir -p "$AGENT_DIR/core"
+        mkdir -p "$AGENT_DIR/subagents/core"
+        mkdir -p "$CONTEXT_DIR/core"
+        download_agents
+        download_context
+        print_success "Agents installed!"
         exit 0
         ;;
 esac
