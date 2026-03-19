@@ -12661,48 +12661,182 @@ function createFuseLogCorrectionTool() {
 }
 function createFuseCreateSpecTool() {
   return tool({
-    description: "Create SPEC.md for current task. REQUIRED for complex/spec-required tasks before coding begins.",
+    description: "Start dynamic SPEC conversation for new projects. Asks smart questions based on user responses, not rigid checklists.",
     args: {
-      task: tool.schema.string().optional().describe("Task description (uses last analyzed task if empty)"),
-      components: tool.schema.string().optional().describe("Components (comma-separated)")
+      task: tool.schema.string().optional().describe("What user wants to build"),
+      mode: tool.schema.enum(["new", "update"]).optional().default("new").describe("New project or update existing?")
     },
     async execute(args) {
       const task = args.task || lastTask;
-      const components = (args.components || "frontend, backend, database").split(",").map((s) => s.trim());
-      if (!task) {
-        return "\u274C No task specified. Run fuse_analyze first.";
+      const mode = args.mode || "new";
+      if (mode === "update") {
+        return `## FUSE Update Workflow Active
+
+Run \`fuse_update\` to handle modifications to existing code.
+
+For updates:
+1. READ the existing code first
+2. UNDERSTAND architecture
+3. PLAN minimal changes
+4. SPEC what needs to change
+5. IMPLEMENT incrementally
+6. TEST thoroughly`;
       }
-      const spec = `# SPEC.md - ${task}
+      if (!task) {
+        return `## FUSE Dynamic SPEC Wizard
 
-## Overview
-${task}
+Start a CONVERSATION to understand requirements:
 
-## Components
-${components.map((c, i) => `${i + 1}. ${c.charAt(0).toUpperCase() + c.slice(1)}`).join(`
-`)}
+### Step 1: Understand Intent
+Ask: "What would you like to build?"
 
-## Requirements
+Based on response, follow with:
+- "Is this something brand new or adding to existing?"
+- "Do you have specific technologies in mind, or should I recommend?"
 
-### Functional
-- [ ] Feature 1
-- [ ] Feature 2
+### Step 2: Explore Preferences (if mentioned)
+If user mentioned tech \u2192 follow up on that stack
+If user said "you decide" \u2192 ask about:
+- Scale (personal, team, enterprise)
+- Real-time needs (yes/no/maybe)
+- Team's existing skills
 
-### Non-Functional
-- [ ] Performance
-- [ ] Security
-- [ ] Scalability
+### Step 3: Features
+Ask: "What features are essential vs nice-to-have?"
 
-## Acceptance Criteria
-- [ ] Criteria 1
-- [ ] Criteria 2
+Let user ADD features, don't force from list.
 
-## Out of Scope
-- Item 1
+### Step 4: Constraints
+Only ask if relevant:
+- "Any database size requirements?"
+- "Security compliance needed?"
+- "Performance targets?"
+- "Browser support requirements?"
 
----
-*Created by FUSE v2.0 - Spec-Driven Development*
+### Step 5: Deploy
+- "Self-hosted or managed platform?"
+- "Domain ready?"
+
+### Golden Rules:
+\u2713 START BROAD, go narrow
+\u2713 ONE decision leads to next question
+\u2713 IF user says "idk" \u2192 RECOMMEND something
+\u2713 SUMMARIZE before building
+
+Run with: \`fuse_create_spec "build a todo app"\``;
+      }
+      const taskLower = task.toLowerCase();
+      let projectType = "general";
+      let smartQuestions = "";
+      if (/store|shop|ecommerce|marketplace/i.test(task)) {
+        projectType = "ecommerce";
+        smartQuestions = `
+## Smart Follow-ups for E-commerce:
+1. "Physical products, digital goods, or services?"
+2. "Payment providers? (Stripe, PayPal, both)"
+3. "Shipping calculation needed?"
+4. "Inventory management required?"
 `;
-      return spec;
+      } else if (/blog|cms|content/i.test(task)) {
+        projectType = "content";
+        smartQuestions = `
+## Smart Follow-ups for Content:
+1. "Who creates content? (users, admins, both)"
+2. "Media handling needed? (images, video)"
+3. "Comments or social features?"
+4. "SEO important?"
+`;
+      } else if (/api|backend|service/i.test(task)) {
+        projectType = "api";
+        smartQuestions = `
+## Smart Follow-ups for API:
+1. "REST, GraphQL, or both?"
+2. "Authentication method?"
+3. "Rate limiting needs?"
+4. "Real-time events needed?"
+`;
+      } else if (/dashboard|admin|analytics/i.test(task)) {
+        projectType = "dashboard";
+        smartQuestions = `
+## Smart Follow-ups for Dashboard:
+1. "Real-time data updates?"
+2. "Charts/visualizations needed?"
+3. "Export functionality?"
+4. "User roles (admin, user, viewer)?"
+`;
+      } else if (/app|mobile/i.test(task)) {
+        projectType = "app";
+        smartQuestions = `
+## Smart Follow-ups for App:
+1. "Web, mobile, or desktop?"
+2. "Native or cross-platform?"
+3. "Offline functionality needed?"
+4. "Push notifications?"
+`;
+      }
+      const specGuide = `# FUSE Dynamic SPEC Wizard
+
+## Project: ${task}
+**Detected Type:** ${projectType.toUpperCase()}
+
+## CONVERSATION FLOW
+
+### Step 1: Clarify Intent
+Start with: "Got it! Let me understand better:"
+- "Is this brand new or adding to existing project?"
+- "Any specific technologies you prefer?"
+
+### Step 2: Follow-up Based on Response
+
+${smartQuestions || `
+## Smart Follow-ups:
+1. "What features are must-haves vs nice-to-haves?"
+2. "Any constraints? (scale, security, timeline)"
+3. "Deployment preferences?"
+`}
+
+### Step 3: Make Recommendations If Needed
+If user says "I don't know":
+- Make a reasonable recommendation
+- Explain WHY you chose it
+- Ask for confirmation
+
+### Step 4: Summarize & Create SPEC
+Before building:
+"So we're building: [X] with [Y] stack targeting [Z]"
+
+Then create SPEC.md with:
+- Tech stack (decided or recommended)
+- Core features (user-provided)
+- Out of scope (v2 items)
+- Constraints met
+
+## EXAMPLE CONVERSATION
+
+User: "build me a todo app"
+
+AI: "Got it! Is this brand new or adding to existing?"
+User: "new"
+
+AI: "Perfect! Any preferences on tech?"
+User: "no idea, you decide"
+
+AI: "I'd recommend Next.js + TypeScript + Supabase. 
+     Next.js for fast dev, Supabase for easy auth/db.
+     Sound good?"
+User: "yes"
+
+AI: "Features?"
+User: "tasks, lists, due dates, sharing"
+
+AI: "Real-time collaboration? (see others' changes live)"
+User: "maybe later"
+
+AI: "Got it! Building SPEC now..."
+
+[Creates SPEC and starts building]
+`;
+      return specGuide;
     }
   });
 }

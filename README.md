@@ -104,52 +104,62 @@ curl -fsSL https://raw.githubusercontent.com/pixelsmon/fuse-opencode-plugin/main
 # Step 6: Restart OpenCode
 ```
 
-## Detailed Spec System (More Than 3 Questions)
+## Dynamic Spec System (Not a Rigid Checklist!)
 
-FUSE asks smart questions based on task type:
+FUSE is **intelligent** - it asks questions SEQUENTIALLY based on your responses, not a rigid checklist.
 
-### For NEW Projects
+### How It Works
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  PROJECT CREATION WIZARD                                │
-├─────────────────────────────────────────────────────────┤
-│  1. PROJECT TYPE                                        │
-│     □ Web App (React/Vue/Angular)                      │
-│     □ API/Backend (Node/Python/Go)                     │
-│     □ Mobile App (React Native/Flutter)                │
-│     □ Desktop App (Electron/Tauri)                     │
-│     □ CLI Tool                                         │
-│     □ Library/Package                                  │
-│                                                         │
-│  2. STACK (select all that apply)                      │
-│     □ Frontend: React / Vue / Svelte / Angular         │
-│     □ Backend: Node / Python / Go / Rust                │
-│     □ Database: PostgreSQL / MongoDB / SQLite          │
-│     □ Auth: JWT / OAuth / Session                      │
-│     □ State: Redux / Zustand / Jotai                   │
-│                                                         │
-│  3. FEATURES (select all needed)                       │
-│     □ User Authentication                              │
-│     □ Real-time (WebSockets)                          │
-│     □ File Upload/Download                             │
-│     □ Email/Notifications                              │
-│     □ Payment Integration                              │
-│     □ Admin Dashboard                                  │
-│     □ API for Mobile/External                          │
-│                                                         │
-│  4. DEPLOYMENT TARGET                                   │
-│     □ Vercel/Netlify (Static/SSR)                     │
-│     □ Docker/Cloud (Backend)                           │
-│     □ Mobile Stores (iOS/Android)                      │
-│     □ Self-hosted                                      │
-│                                                         │
-│  5. NON-FUNCTIONAL REQUIREMENTS                        │
-│     □ Performance: <200ms response time               │
-│     □ Scalability: 1000+ concurrent users              │
-│     □ Security: SOC2 / GDPR compliance                 │
-└─────────────────────────────────────────────────────────┘
+❌ BAD (rigid checklist): "Pick from this list: React? Vue? Angular?"
+✅ GOOD (dynamic): "Any tech preferences?" → Follow up based on answer
 ```
+
+### Example Conversation
+
+```
+User: "build me an online store"
+
+AI: "Got it! Is this brand new or adding to existing?"
+User: "new"
+
+AI: "Cool! Any specific technologies in mind?"
+User: "no idea, you decide"
+
+AI: "I'd recommend Next.js + Stripe + Supabase.
+     Fast development, easy payments, handles auth.
+     Sound good?"
+User: "yes"
+
+AI: "Features?"
+User: "products, cart, checkout, user accounts"
+
+AI: "Real-time inventory tracking?"
+User: "not needed for now"
+
+AI: "Perfect! Creating SPEC and building now..."
+```
+
+### Key Principles
+
+| Principle | Description |
+|-----------|-------------|
+| **START BROAD** | Don't assume tech stack |
+| **FOLLOW UP** | One answer leads to next smart question |
+| **RECOMMEND** | If user says "I don't know", make a decision |
+| **SUMMARIZE** | Confirm before building |
+
+### Smart Branching
+
+FUSE detects project type and asks relevant follow-ups:
+
+| Project Type | Smart Questions |
+|-------------|----------------|
+| E-commerce | "Physical or digital products?" |
+| Blog/CMS | "Who creates content?" |
+| API | "REST or GraphQL?" |
+| Dashboard | "Real-time updates needed?" |
+| App | "Web, mobile, or desktop?" |
 
 ### For UPDATE Projects
 
