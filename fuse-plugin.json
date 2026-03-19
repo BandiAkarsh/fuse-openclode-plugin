@@ -4,10 +4,10 @@
   "description": "FUSE - Spec-Driven AI Orchestration for OpenCode",
   "author": "BandiAkarsh",
   "license": "MIT",
-  "repository": "https://github.com/BandiAkarsh/fuse-opencode-plugin",
+  "repository": "https://github.com/BandiAkarsh/fuse-openclode-plugin",
   
   "plugin": {
-    "main": "./plugin/fuse.js",
+    "main": "./dist/index.js",
     "type": "standard"
   },
   
@@ -39,6 +39,7 @@
   
   "tools": [
     "fuse_analyze",
+    "fuse_check_project",
     "fuse_create_spec",
     "fuse_log_correction",
     "fuse_status",

@@ -171,11 +171,11 @@ BEFORE any bash/write/edit/task execution, ALWAYS load required context files.
 AUTO-STOP if you find yourself executing without context loaded.
 
 REQUIRED CONTEXT FILES:
-- Code tasks → /home/akarsh/.config/opencode/context/core/standards/code-quality.md
-- Docs tasks → /home/akarsh/.config/opencode/context/core/standards/documentation.md  
-- Tests tasks → /home/akarsh/.config/opencode/context/core/standards/test-coverage.md
-- Review tasks → /home/akarsh/.config/opencode/context/core/workflows/code-review.md
-- Delegation → /home/akarsh/.config/opencode/context/core/workflows/task-delegation-basics.md
+- Code tasks → ~/.config/opencode/context/core/standards/code-quality.md
+- Docs tasks → ~/.config/opencode/context/core/standards/documentation.md  
+- Tests tasks → ~/.config/opencode/context/core/standards/test-coverage.md
+- Review tasks → ~/.config/opencode/context/core/workflows/code-review.md
+- Delegation → ~/.config/opencode/context/core/workflows/task-delegation-basics.md
 
 LEARNING FROM CORRECTIONS:
 When user corrects agent output, log to .opencode/memory/corrections/ with:
@@ -311,7 +311,7 @@ task(
     
     Edge case - "Context loading vs minimal overhead":
     - @critical_context_requirement (Tier 1) ALWAYS overrides minimal overhead (Tier 3)
-    - Context files (/home/akarsh/.config/opencode/context/core/*.md) MANDATORY, not optional
+    - Context files (~/.config/opencode/context/core/*.md) MANDATORY, not optional
     - Session files (.tmp/sessions/*) created only when needed
     - Ex: "Write docs" → MUST load standards/documentation.md (Tier 1 override)
     - Ex: "Write docs" → Skip ctx for efficiency (VIOLATION)
@@ -566,7 +566,7 @@ task(
 </principles>
 
 <static_context>
-  Context index: /home/akarsh/.config/opencode/context/navigation.md
+  Context index: ~/.config/opencode/context/navigation.md
   
   Memory locations:
   - .opencode/memory/sessions/      # Session summaries
@@ -575,11 +575,11 @@ task(
   - .opencode/memory/preferences/   # User preferences
   
   Load index when discovering contexts by keywords. For common tasks:
-  - Code tasks → /home/akarsh/.config/opencode/context/core/standards/code-quality.md
-  - Docs tasks → /home/akarsh/.config/opencode/context/core/standards/documentation.md  
-  - Tests tasks → /home/akarsh/.config/opencode/context/core/standards/test-coverage.md
-  - Review tasks → /home/akarsh/.config/opencode/context/core/workflows/code-review.md
-  - Delegation → /home/akarsh/.config/opencode/context/core/workflows/task-delegation-basics.md
+  - Code tasks → ~/.config/opencode/context/core/standards/code-quality.md
+  - Docs tasks → ~/.config/opencode/context/core/standards/documentation.md  
+  - Tests tasks → ~/.config/opencode/context/core/standards/test-coverage.md
+  - Review tasks → ~/.config/opencode/context/core/workflows/code-review.md
+  - Delegation → ~/.config/opencode/context/core/workflows/task-delegation-basics.md
   
   Full index includes all contexts with triggers and dependencies.
   Context files loaded per @critical_context_requirement.

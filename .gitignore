@@ -3,6 +3,11 @@ node_modules/
 
 # Build output
 dist/*.map
+dist/*.d.ts
+dist/*.d.ts.map
+
+# Source (not needed in repo)
+src/
 
 # OS
 .DS_Store

@@ -1,183 +1,197 @@
-# FUSE - Spec-Driven AI Orchestration for OpenCode
+# 🔥 FUSE - Spec-Driven AI Orchestration
 
-**FUSE** (Fully Unified Software Engine) - Self-improving workflow orchestration that learns from mistakes.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![OpenCode](https://img.shields.io/badge/OpenCode-Plugin-blue.svg)](https://opencode.ai)
+[![Stars](https://img.shields.io/github/stars/BandiAkarsh/fuse-openclode-plugin?style=social)](https://github.com/BandiAkarsh/fuse-openclode-plugin/stargazers)
+[![Forks](https://img.shields.io/github/forks/BandiAkarsh/fuse-openclode-plugin?style=social)](https://github.com/BandiAkarsh/fuse-openclode-plugin/network/members)
 
-> **Inspiration**: FUSE takes inspiration from [OpenAgentsControl by Darren Hide](https://github.com/darrenhinde/OpenAgentsControl), an excellent project that provides structured workflows for OpenCode. FUSE extends this with spec-driven development principles, dynamic questioning, and self-improvement capabilities.
+> **FUSE** (Fully Unified Software Engine) — Self-improving workflow orchestration that learns from mistakes and prevents the "3-month chaos" of vibe coding.
 
-## The Problem
+*Inspired by [OpenAgentsControl](https://github.com/darrenhinde/OpenAgentsControl) by Darren Hide*
 
-AI coding tools generate code fast, but:
+---
 
-```
-Vibe Coding = Fast chaos
-- Code works initially
-- Breaks at 3-month mark
-- "Fix one thing, break ten others"
-- No map back to stable version
-```
-
-## The Solution
-
-```
-FUSE = Fast + SPEC
-- SPEC.md first (what, not how)
-- Agent chains for complex tasks
-- Learn from mistakes
-- Never repeat the same error twice
-```
-
-## Quick Install (One Command)
+## 🚀 Quick Start
 
 ```bash
+# One-command installation
 curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-openclode-plugin/main/install.sh | bash
 ```
 
-### Or with options:
+That's it! Restart OpenCode and FUSE is ready.
 
-```bash
-# Check what would be installed first
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-openclode-plugin/main/install.sh -o install.sh
-bash install.sh --dry-run
+---
 
-# Install everything
-bash install.sh
+## 🎯 What FUSE Solves
+
+| Problem with Vibe Coding | FUSE Solution |
+|------------------------|---------------|
+| 😱 Code breaks at 3-month mark | 📋 SPEC.md first |
+| 🐛 Fix one thing, break ten | 🔗 Agent chains |
+| 📉 Speed degrades over time | 🧠 Learns from mistakes |
+| ❌ Same errors repeated | 💾 Memory persistence |
+
+---
+
+## ✨ Features
+
+### 1. 🏗️ Spec-Driven Workflow
+```
+┌────────────────────────────────────────────────────────┐
+│  Explore/Prototype  →  VIBE OK (small, isolated)      │
+│  Ship/Maintain     →  SPEC REQUIRED                   │
+│  Complex Systems   →  SPEC → TaskManager → Agents     │
+└────────────────────────────────────────────────────────┘
 ```
 
-## What FUSE Does
-
-### 1. Spec-Driven Workflow
-
-| Scope | Approach | When |
-|-------|----------|------|
-| Explore/Prototype | VIBE OK | Small, isolated |
-| Ship/Maintain | SPEC REQUIRED | Anything you'll keep |
-| Complex Systems | SPEC → TaskManager → Agents | Multi-component |
-
-### 2. Self-Improvement
-
+### 2. 🧠 Self-Improvement
 ```
 Task → Success? → Log to memory
               ↓ No
         Log mistake → Future tasks get warnings
 ```
 
-### 3. Update-Aware
+### 3. 🔄 Update-Aware
+Safe modifications to existing code with minimal changes.
 
-When you ask to modify existing code:
+---
 
-```
-┌─────────────────────────────────────────────────────┐
-│  "Update the login system"                          │
-│                                                     │
-│  1. Read existing code                              │
-│  2. Understand current architecture                  │
-│  3. Create SPEC for changes                         │
-│  4. Plan minimal changes (don't break existing)     │
-│  5. Implement incrementally                         │
-│  6. Test against original functionality             │
-└─────────────────────────────────────────────────────┘
-```
-
-## Tools
+## 🛠️ Tools
 
 | Tool | Purpose |
 |------|---------|
 | `fuse_analyze` | Analyze task complexity with memory integration |
 | `fuse_check_project` | Auto-invoke ContextScout for project analysis |
-| `fuse_create_spec` | Generate SPEC.md with smart questions |
+| `fuse_create_spec` | Generate SPEC.md with dynamic questions |
 | `fuse_log_correction` | Log mistakes for self-improvement |
 | `fuse_status` | Show current status + learned corrections |
 | `fuse_update` | Handle update/modification scenarios |
 
-## Dynamic Spec System
+---
 
-FUSE is **intelligent** - it asks questions SEQUENTIALLY based on your responses, not a rigid checklist.
+## 📖 Usage Examples
 
-### How It Works
-
-```
-❌ BAD (rigid checklist): "Pick from this list: React? Vue? Angular?"
-✅ GOOD (dynamic): "Any tech preferences?" → Follow up based on answer
-```
-
-### Example Conversation
+### Create New Project
 
 ```
-User: "build me an online store"
+> "build me an online store"
 
 AI: "Got it! Is this brand new or adding to existing?"
-User: "new"
+You: "new"
 
 AI: "Cool! Any specific technologies in mind?"
-User: "no idea, you decide"
+You: "no idea, you decide"
 
-AI: "I'd recommend Next.js + Stripe + Supabase.
-     Fast development, easy payments, handles auth.
-     Sound good?"
-User: "yes"
+AI: "I'd recommend Next.js + Stripe + Supabase. Sound good?"
+You: "yes"
 
 AI: "Features?"
-User: "products, cart, checkout, user accounts"
+You: "products, cart, checkout"
 
 AI: "Creating SPEC and building now..."
 ```
 
-### Key Principles
-
-| Principle | Description |
-|-----------|-------------|
-| **START BROAD** | Don't assume tech stack |
-| **FOLLOW UP** | One answer leads to next smart question |
-| **RECOMMEND** | If user says "I don't know", make a decision |
-| **SUMMARIZE** | Confirm before building |
-
-## Auto-Agent Invocation
-
-FUSE automatically invokes the right agents based on context:
-
-- **"check this project"** → Auto-invokes ContextScout
-- **"create full-stack app"** → Auto-invokes TaskManager + specialists
-- **"fix bug in existing code"** → Auto-invokes update workflow
-
-## Comparison
-
-| Feature | Vibe Coding | FUSE |
-|---------|-------------|------|
-| Speed (initial) | Fast | Fast |
-| Speed (3 months later) | Slow (chaos) | Fast (spec maintained) |
-| Maintenance | Hard | Easy |
-| Trust Debt | High | Low |
-| Self-Improvement | None | Learns from mistakes |
-
-## Files
+### Update Existing Code
 
 ```
-fuse-opencode-plugin/
-├── README.md              # This file
-├── install.sh             # One-command installer
-├── fuse-plugin.json        # Plugin manifest
-├── registry.json          # Component registry
-├── dist/                  # Built plugin (JS)
-│   └── index.js
-├── src/                   # Source code
-├── .opencode/             # Agents & context
-│   ├── agent/              # OpenAgent, OpenCoder, subagents
-│   └── context/           # Standards, workflows
-└── docs/                  # Documentation
-    ├── SPEC_WIZARD.md
-    └── UPDATE_WORKFLOW.md
+> "add user profiles to the login system"
+
+AI: "I'll add profiles. Quick questions..."
+AI: "✓ Analyzing existing login..."
+AI: "✓ Planning minimal changes..."
+AI: "✓ Adding profiles without breaking login..."
 ```
-
-## Requirements
-
-- OpenCode CLI
-- Node.js 18+ (for plugin)
-- Bash 3.2+
-
-## License
-
-MIT
 
 ---
 
-*"The magic isn't in the vibes. It's in knowing exactly what you want and expressing it clearly."* — adapted from Red Hat Developers
+## 🎨 Dynamic Spec System
+
+FUSE asks questions **sequentially based on your answers** — not a rigid checklist:
+
+```
+❌ BAD: "Pick from list: React? Vue? Angular?"
+✅ GOOD: "Any tech preferences?" → Follow up based on answer
+```
+
+### Smart Branching
+
+| Project Type | FUSE Asks |
+|-------------|-----------|
+| 🛒 E-commerce | "Physical or digital products?" |
+| 📝 Blog/CMS | "Who creates content?" |
+| 🔌 API | "REST or GraphQL?" |
+| 📊 Dashboard | "Real-time updates needed?" |
+
+---
+
+## 🔗 Auto-Agent Invocation
+
+FUSE automatically calls the right agents:
+
+| User Says | FUSE Does |
+|-----------|-----------|
+| `"check this project"` | Invokes ContextScout |
+| `"create full-stack app"` | Invokes TaskManager + specialists |
+| `"fix bug"` | Invokes update workflow |
+
+---
+
+## 📁 Project Structure
+
+```
+fuse-openclode-plugin/
+├── 📜 README.md              # This file
+├── 🔧 install.sh             # One-command installer
+├── ⚙️  fuse-plugin.json        # Plugin manifest
+├── 📦 dist/
+│   └── 🚀 index.js           # Built plugin
+├── 📚 docs/
+│   ├── 📋 SPEC_WIZARD.md    # Spec creation guide
+│   └── 🔄 UPDATE_WORKFLOW.md # Update handling
+├── 🤖 .opencode/
+│   ├── 👤 agent/             # OpenAgent, OpenCoder
+│   │   └── core/
+│   └── 📖 context/           # Standards, workflows
+└── 📊 registry.json          # Component registry
+```
+
+---
+
+## 📋 Requirements
+
+| Requirement | Version |
+|-------------|---------|
+| OpenCode CLI | Latest |
+| Node.js | 18+ |
+| Bash | 3.2+ |
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please read the docs and follow the spec-driven workflow.
+
+---
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE)
+
+---
+
+## 🙏 Credits
+
+- **[Darren Hide](https://github.com/darrenhinde)** - Creator of [OpenAgentsControl](https://github.com/darrenhinde/OpenAgentsControl) which inspired FUSE
+- **[Red Hat Developers](https://developers.redhat.com)** - Article on vibe coding that inspired spec-driven development
+
+---
+
+<p align="center">
+  <strong>Built with the insight that:</strong><br>
+  <em>"The magic isn't in the vibes. It's in knowing exactly what you want."</em>
+</p>
+
+<p align="center">
+  ⭐ Star this repo if FUSE helped you!<br>
+  🔀 Fork it to customize for your workflow!
+</p>

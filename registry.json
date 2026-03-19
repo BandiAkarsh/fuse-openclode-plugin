@@ -21,7 +21,7 @@
         "id": "fuse",
         "name": "FUSE Plugin",
         "description": "Spec-driven AI orchestration with memory and self-improvement",
-        "path": ".opencode/plugin/fuse.js",
+        "path": "dist/index.js",
         "dependencies": []
       }
     ],
@@ -31,13 +31,13 @@
         "id": "fuse-spec-workflow",
         "name": "FUSE Spec Workflow",
         "description": "Detailed spec creation workflow for new projects",
-        "path": ".opencode/context/fuse-spec-workflow.md"
+        "path": "docs/SPEC_WIZARD.md"
       },
       {
         "id": "fuse-update-workflow",
         "name": "FUSE Update Workflow", 
         "description": "Safe update workflow for modifying existing code",
-        "path": ".opencode/context/fuse-update-workflow.md"
+        "path": "docs/UPDATE_WORKFLOW.md"
       }
     ]
   }

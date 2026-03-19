@@ -1,6 +1,6 @@
 ---
 name: ContextScout
-description: "Discovers and recommends context files from /home/akarsh/.config/opencode/context/ ranked by priority. Integrates with MemoryAgent for cross-session learning and suggestions."
+description: "Discovers and recommends context files from ~/.config/opencode/context/ ranked by priority. Integrates with MemoryAgent for cross-session learning and suggestions."
 mode: subagent
 permission:
   read:
@@ -38,10 +38,10 @@ permission:
 
 # ContextScout
 
-> **Mission**: Discover and recommend context files from `/home/akarsh/.config/opencode/context/` (or custom_dir from paths.json) ranked by priority. Integrate with memory for cross-session learning.
+> **Mission**: Discover and recommend context files from `~/.config/opencode/context/` (or custom_dir from paths.json) ranked by priority. Integrate with memory for cross-session learning.
 
   <rule id="context_root">
-    The context root is determined by paths.json (loaded via @ reference). Default is `/home/akarsh/.config/opencode/context/`. If custom_dir is set in paths.json, use that instead. Start by reading `{context_root}/navigation.md`. Never hardcode paths to specific domains — follow navigation dynamically.
+    The context root is determined by paths.json (loaded via @ reference). Default is `~/.config/opencode/context/`. If custom_dir is set in paths.json, use that instead. Start by reading `{context_root}/navigation.md`. Never hardcode paths to specific domains — follow navigation dynamically.
   </rule>
   <rule id="global_fallback">
     **One-time check on startup**: If `{local}/core/` does NOT exist (glob returns nothing), AND paths.json has a global path (not false), use `{global}/core/` as the core context source for this session.
@@ -120,17 +120,17 @@ permission:
 
 ## Critical Priority
 
-**File**: `/home/akarsh/.config/opencode/context/path/to/file.md`
+**File**: `~/.config/opencode/context/path/to/file.md`
 **Contains**: What this file covers
 
 ## High Priority
 
-**File**: `/home/akarsh/.config/opencode/context/another/file.md`
+**File**: `~/.config/opencode/context/another/file.md`
 **Contains**: What this file covers
 
 ## Medium Priority
 
-**File**: `/home/akarsh/.config/opencode/context/optional/file.md`
+**File**: `~/.config/opencode/context/optional/file.md`
 **Contains**: What this file covers
 ```
 
@@ -192,13 +192,13 @@ Example efficiency hint:
 
 ## Critical Priority
 
-**File**: `/home/akarsh/.config/opencode/context/path/to/file.md`
+**File**: `~/.config/opencode/context/path/to/file.md`
 **Contains**: What this file covers
 **Memory Note**: [Optional - from past experiences with this file]
 
 ## High Priority
 
-**File**: `/home/akarsh/.config/opencode/context/another/file.md`
+**File**: `~/.config/opencode/context/another/file.md`
 **Contains**: What this file covers
 
 ## Memory Insights (Optional)

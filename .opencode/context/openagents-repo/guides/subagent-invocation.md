@@ -249,13 +249,13 @@ task(
 
 // ✅ Use direct operations instead
 // 1. Use glob to find context files
-glob(pattern="**/*.md", path="/home/akarsh/.config/opencode/context")
+glob(pattern="**/*.md", path="~/.config/opencode/context")
 
 // 2. Use grep to search content
-grep(pattern="registry", path="/home/akarsh/.config/opencode/context")
+grep(pattern="registry", path="~/.config/opencode/context")
 
 // 3. Read relevant files directly
-read(filePath="/home/akarsh/.config/opencode/context/openagents-repo/core-concepts/registry.md")
+read(filePath="~/.config/opencode/context/openagents-repo/core-concepts/registry.md")
 ```
 
 ---

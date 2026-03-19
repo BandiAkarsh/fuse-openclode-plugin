@@ -39,7 +39,7 @@ A senior knowledge engineer doesn't say "I know where to look in OpenCode projec
 
 ```
 1. Look for common knowledge locations:
-   - /home/akarsh/.config/opencode/context/ (OpenCode standard)
+   - ~/.config/opencode/context/ (OpenCode standard)
    - docs/ (documentation directory)
    - .context/ (alternative context)
    - wiki/ (wiki-style docs)
@@ -171,7 +171,7 @@ These principles apply to ANY knowledge organization system.
 
 **OpenCode Structure:**
 ```
-/home/akarsh/.config/opencode/context/
+~/.config/opencode/context/
 ├── core/
 │   ├── standards/
 │   ├── workflows/

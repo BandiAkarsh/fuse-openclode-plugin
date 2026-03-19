@@ -455,7 +455,7 @@ After your system is generated:
 
 ## Resources
 
-- **Templates**: `/home/akarsh/.config/opencode/context/system-builder-templates/`
+- **Templates**: `~/.config/opencode/context/system-builder-templates/`
 - **Examples**: See generated systems for reference
 - **Documentation**: navigation.md, ARCHITECTURE.md, TESTING.md
 - **Patterns**: Review template files for best practices
