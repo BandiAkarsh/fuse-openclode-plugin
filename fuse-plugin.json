@@ -1,0 +1,47 @@
+{
+  "name": "fuse-opencode-plugin",
+  "version": "1.0.0",
+  "description": "FUSE - Spec-Driven AI Orchestration for OpenCode",
+  "author": "pixelsmon",
+  "license": "MIT",
+  "repository": "https://github.com/pixelsmon/fuse-opencode-plugin",
+  
+  "plugin": {
+    "main": "./plugin/fuse.js",
+    "type": "standard"
+  },
+  
+  "fuse": {
+    "auto_routing": true,
+    "workflow_enforcement": true,
+    "memory_persistence": true,
+    "spec_driven": true,
+    "self_improvement": true,
+    
+    "complexity_thresholds": {
+      "simple": 30,
+      "medium": 120,
+      "complex": 240
+    },
+    
+    "parallel_execution": {
+      "enabled": true,
+      "max_parallel": 4,
+      "worktree_isolation": true
+    },
+    
+    "memory_lifecycle": {
+      "importance_decay_per_week": 2,
+      "stale_threshold": 7,
+      "auto_cleanup": true
+    }
+  },
+  
+  "tools": [
+    "fuse_analyze",
+    "fuse_create_spec",
+    "fuse_log_correction",
+    "fuse_status",
+    "fuse_update"
+  ]
+}
