@@ -4,24 +4,6 @@
 
 > **Inspiration**: FUSE takes inspiration from [OpenAgentsControl by Darren Hide](https://github.com/darrenhinde/OpenAgentsControl), an excellent project that provides structured workflows for OpenCode. FUSE extends this with spec-driven development principles, dynamic questioning, and self-improvement capabilities.
 
-## Why FUSE Isn't Visible Right Now
-
-⚠️ **FUSE only works inside OpenCode TUI!** 
-
-This conversation is NOT in OpenCode - it's a regular chat interface. FUSE is a plugin that:
-
-1. **Installs into OpenCode** → `/home/akarsh/.config/opencode/plugin/`
-2. **Works inside OpenCode TUI** → `opencode` command
-3. **Provides tools** → `fuse_analyze`, `fuse_create_spec`, etc.
-
-To use FUSE:
-```bash
-# Install OpenCode first
-opencode
-
-# Then FUSE works automatically!
-```
-
 ## The Problem
 
 AI coding tools generate code fast, but:
@@ -47,18 +29,18 @@ FUSE = Fast + SPEC
 ## Quick Install (One Command)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-openclode-plugin/main/install.sh | bash
 ```
 
 ### Or with options:
 
 ```bash
-# Install with fuse plugin
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh | bash -s fuse
-
 # Check what would be installed first
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/install.sh -o install.sh
+curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-openclode-plugin/main/install.sh -o install.sh
 bash install.sh --dry-run
+
+# Install everything
+bash install.sh
 ```
 
 ## What FUSE Does
@@ -90,41 +72,24 @@ When you ask to modify existing code:
 │  1. Read existing code                              │
 │  2. Understand current architecture                  │
 │  3. Create SPEC for changes                         │
-│  4. Plan minimal changes (don't break existing)    │
+│  4. Plan minimal changes (don't break existing)     │
 │  5. Implement incrementally                         │
 │  6. Test against original functionality             │
 └─────────────────────────────────────────────────────┘
 ```
 
-## For AI Models (Install Instructions)
+## Tools
 
-When a user asks you to install FUSE:
+| Tool | Purpose |
+|------|---------|
+| `fuse_analyze` | Analyze task complexity with memory integration |
+| `fuse_check_project` | Auto-invoke ContextScout for project analysis |
+| `fuse_create_spec` | Generate SPEC.md with smart questions |
+| `fuse_log_correction` | Log mistakes for self-improvement |
+| `fuse_status` | Show current status + learned corrections |
+| `fuse_update` | Handle update/modification scenarios |
 
-```bash
-# Step 1: Check if OpenCode is installed
-which opencode || echo "OpenCode not found"
-
-# Step 2: Create plugin directory
-mkdir -p ~/.config/opencode/plugin
-
-# Step 3: Download plugin
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/dist/index.js \
-  -o ~/.config/opencode/plugin/fuse.js
-
-# Step 4: Download plugin manifest
-curl -fsSL https://raw.githubusercontent.com/BandiAkarsh/fuse-opencode-plugin/main/fuse-plugin.json \
-  -o ~/.config/opencode/plugin/fuse-plugin.json
-
-# Step 5: Update opencode.json
-# Add to plugins array in ~/.config/opencode/opencode.json:
-# {
-#   "plugins": ["~/.config/opencode/plugin/fuse.js"]
-# }
-
-# Step 6: Restart OpenCode
-```
-
-## Dynamic Spec System (Not a Rigid Checklist!)
+## Dynamic Spec System
 
 FUSE is **intelligent** - it asks questions SEQUENTIALLY based on your responses, not a rigid checklist.
 
@@ -154,10 +119,7 @@ User: "yes"
 AI: "Features?"
 User: "products, cart, checkout, user accounts"
 
-AI: "Real-time inventory tracking?"
-User: "not needed for now"
-
-AI: "Perfect! Creating SPEC and building now..."
+AI: "Creating SPEC and building now..."
 ```
 
 ### Key Principles
@@ -169,119 +131,13 @@ AI: "Perfect! Creating SPEC and building now..."
 | **RECOMMEND** | If user says "I don't know", make a decision |
 | **SUMMARIZE** | Confirm before building |
 
-### Smart Branching
+## Auto-Agent Invocation
 
-FUSE detects project type and asks relevant follow-ups:
+FUSE automatically invokes the right agents based on context:
 
-| Project Type | Smart Questions |
-|-------------|----------------|
-| E-commerce | "Physical or digital products?" |
-| Blog/CMS | "Who creates content?" |
-| API | "REST or GraphQL?" |
-| Dashboard | "Real-time updates needed?" |
-| App | "Web, mobile, or desktop?" |
-
-### For UPDATE Projects
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  UPDATE WIZARD (when modifying existing code)          │
-├─────────────────────────────────────────────────────────┤
-│  1. WHAT TO UPDATE                                      │
-│     □ Add new feature                                   │
-│     □ Modify existing feature                           │
-│     □ Fix bug                                           │
-│     □ Improve performance                               │
-│     □ Refactor/cleanup                                 │
-│     □ Add tests                                        │
-│                                                         │
-│  2. AFFECTED AREAS                                      │
-│     □ Frontend only                                    │
-│     □ Backend only                                     │
-│     □ Both frontend and backend                         │
-│     □ Database schema changes                          │
-│     □ API changes (breaking?)                          │
-│                                                         │
-│  3. CONSTRAINTS (critical to preserve)                  │
-│     □ Don't break existing API endpoints               │
-│     □ Don't change database schema                     │
-│     □ Must maintain backward compatibility             │
-│     □ Performance must not degrade                     │
-│                                                         │
-│  4. RISK ASSESSMENT                                     │
-│     □ Low risk (isolated change)                       │
-│     □ Medium risk (affects multiple features)          │
-│     □ High risk (core functionality)                   │
-└─────────────────────────────────────────────────────────┘
-```
-
-## Tools
-
-| Tool | Purpose |
-|------|---------|
-| `fuse_analyze` | Analyze task complexity with memory integration |
-| `fuse_create_spec` | Generate SPEC.md with smart questions |
-| `fuse_log_correction` | Log mistakes for self-improvement |
-| `fuse_status` | Show current status + learned corrections |
-| `fuse_update` | Handle update/modification scenarios |
-
-## Workflow Examples
-
-### New Project
-
-```bash
-> "Create an ecommerce platform"
-
-FUSE: "I'll help you build an ecommerce platform. Quick questions:"
-
-1. What type of store?
-   a) Physical products
-   b) Digital products
-   c) Services/subscriptions
-   
-2. Any existing integrations?
-   a) Payment: Stripe / PayPal / Both
-   b) Shipping: Manual / Real-time rates
-   
-3. What features are critical?
-   a) User accounts + wishlists
-   b) Inventory management
-   c) Order tracking
-   d) Admin dashboard
-
-YOU: "a, Stripe, a and b"
-
-✅ SPEC created. Building your ecommerce platform...
-```
-
-### Update Existing
-
-```bash
-> "Add user profiles to the login system"
-
-FUSE: "I'll add user profiles. Quick questions:"
-
-1. Profile fields needed?
-   a) Basic (name, avatar, bio)
-   b) Social links
-   c) Preferences/settings
-   
-2. Profile visibility?
-   a) Public (anyone can view)
-   b) Private (only owner)
-   c) Friends-only
-   
-3. Avatar upload?
-   a) Yes (with crop/resize)
-   b) No (URL only)
-
-YOU: "a and b, a, yes"
-
-✅ SPEC created. Analyzing existing login system...
-✅ Reading current auth implementation...
-✅ Planning minimal changes...
-✅ Adding profiles without breaking login...
-```
+- **"check this project"** → Auto-invokes ContextScout
+- **"create full-stack app"** → Auto-invokes TaskManager + specialists
+- **"fix bug in existing code"** → Auto-invokes update workflow
 
 ## Comparison
 
@@ -299,16 +155,17 @@ YOU: "a and b, a, yes"
 fuse-opencode-plugin/
 ├── README.md              # This file
 ├── install.sh             # One-command installer
-├── fuse-plugin.json       # Plugin manifest
+├── fuse-plugin.json        # Plugin manifest
 ├── registry.json          # Component registry
 ├── dist/                  # Built plugin (JS)
 │   └── index.js
 ├── src/                   # Source code
-│   ├── index.ts          # Main plugin
-│   └── ...
+├── .opencode/             # Agents & context
+│   ├── agent/              # OpenAgent, OpenCoder, subagents
+│   └── context/           # Standards, workflows
 └── docs/                  # Documentation
-    ├── SPEC_WIZARD.md    # Detailed spec questions
-    └── UPDATE_WORKFLOW.md # Update handling
+    ├── SPEC_WIZARD.md
+    └── UPDATE_WORKFLOW.md
 ```
 
 ## Requirements
@@ -323,4 +180,4 @@ MIT
 
 ---
 
-**Built with the insight that:** *"The magic isn't in the vibes. It's in knowing exactly what you want and expressing it clearly."* — adapted from Red Hat Developers
+*"The magic isn't in the vibes. It's in knowing exactly what you want and expressing it clearly."* — adapted from Red Hat Developers
