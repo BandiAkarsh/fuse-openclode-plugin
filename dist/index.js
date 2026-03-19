@@ -12567,11 +12567,33 @@ ${topCorrections || "- No critical corrections learned yet"}
 2. TaskManager \u2192 CoderAgent \u2192 TestEngineer
 
 ### COMPLEX (multi-component):
-1. ContextScout (discover context)
-2. ExternalScout (fetch docs)
+1. ContextScout (discover context) - ALWAYS call this FIRST
+2. ExternalScout (fetch docs for external packages)
 3. TaskManager (create SPEC.md)
 4. Agents (implement from spec)
 5. TestEngineer (validate against spec)
+
+## AUTO-INVOCATION RULES (ALWAYS follow these):
+
+### PROJECT ANALYSIS (MUST invoke ContextScout):
+When user says these, call fuse_check_project IMMEDIATELY:
+- "check this project"
+- "analyze this project"
+- "what is this project"
+- "explore this codebase"
+- "show me the project structure"
+- "understand this project"
+- Any request to understand/analyze the current project
+
+### AGENT INVOCATION PATTERN:
+For project analysis, invoke ContextScout:
+\`\`\`javascript
+task(
+  subagent_type="ContextScout",
+  description="Analyze current project",
+  prompt="Thoroughly analyze this project..."
+)
+\`\`\`
 
 ### \u26A0\uFE0F VIBE DANGER ZONE:
 - "create full-stack app" \u2192 SPEC REQUIRED
@@ -13027,6 +13049,84 @@ During modification:
     }
   });
 }
+function createFuseCheckProjectTool() {
+  return tool({
+    description: "Automatically check/analyze the current project. Invokes ContextScout to discover project structure, tech stack, standards, and conventions. Use when user says 'check this project', 'analyze project', 'what is this project', etc.",
+    args: {
+      project_path: tool.schema.string().optional().describe("Path to project (default: current directory)")
+    },
+    async execute(args) {
+      const projectPath = args.project_path || process.cwd();
+      return `FUSE Project Check:
+
+## Invoke ContextScout Agent
+
+When user asks to "check this project", you MUST call the ContextScout agent:
+
+\`\`\`javascript
+task(
+  subagent_type="ContextScout",
+  description="Analyze current project",
+  prompt="Analyze the project at ${projectPath}
+
+Provide:
+1. Project type and tech stack
+2. Directory structure
+3. Coding standards and conventions
+4. Existing context files
+5. Dependencies and frameworks
+6. Key files and patterns
+7. Any recommendations
+
+Be thorough - this determines how to work with this project."
+)
+\`\`\`
+
+## After ContextScout Returns
+
+Present findings to user in this format:
+
+\`\`\`
+\uD83D\uDCC1 PROJECT ANALYSIS
+\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501
+
+\uD83C\uDFAF Type: [React App / Node API / Python ML / etc.]
+\u2699\uFE0F  Stack: [List technologies]
+
+\uD83D\uDCC2 Structure:
+\u251C\u2500\u2500 [key directories]
+\u2514\u2500\u2500 [important files]
+
+\uD83D\uDCCB Standards Found:
+\u2022 [coding conventions]
+\u2022 [naming patterns]
+\u2022 [file organization]
+
+\uD83D\uDD27 Tech Details:
+\u2022 Framework: [name]
+\u2022 Database: [if any]
+\u2022 Build tool: [npm/poetry/etc.]
+\u2022 Linting: [ESLint/Prettier/etc.]
+
+\u2705 Ready to:
+\u2022 Add features following your conventions
+\u2022 Create SPEC.md for new features
+\u2022 Modify code without breaking patterns
+\`\`\`
+
+## Enforcement Rules
+
+This tool MUST be called when user says:
+- "check this project"
+- "analyze this project"
+- "what is this project"
+- "explore this codebase"
+- "show me the project structure"
+- Any variation asking about the current project
+`;
+    }
+  });
+}
 var FUSEPlugin = async (ctx) => {
   console.log(import_picocolors.default.cyan("[FUSE v2.0] Loading with self-improvement..."));
   memoryDir = join(ctx.directory, "memory");
@@ -13037,6 +13137,7 @@ var FUSEPlugin = async (ctx) => {
       fuse_analyze: createFuseAnalyzeTool(),
       fuse_log_correction: createFuseLogCorrectionTool(),
       fuse_create_spec: createFuseCreateSpecTool(),
+      fuse_check_project: createFuseCheckProjectTool(),
       fuse_status: createFuseStatusTool(),
       fuse_enforce: createFuseEnforceTool(),
       fuse_update: createFuseUpdateTool()
